@@ -2,6 +2,7 @@ package com.sebapd.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,8 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .and()
                 .authorizeRequests()
-                .mvcMatchers("/delete").hasAuthority("delete")
-                .mvcMatchers("/add_user").hasAuthority("add")
+                .mvcMatchers(HttpMethod.DELETE, "/delete").hasAuthority("delete")
+                .mvcMatchers(HttpMethod.POST, "/add_user").hasAuthority("add")
                 .anyRequest().authenticated();
     }
 }
